@@ -89,16 +89,14 @@ public class Partie_ordi extends AppCompatActivity {
             dico.charge(is);}
         catch (IOException e){
             Log.v("erreur",e.toString());}
-        Log.v("taille_dictionnaire",String.valueOf(dico.dico.size()));
 
-        Log.e("taillecase",String.valueOf(taillecase));
 
         for (int i=0;i<15;i++){
             for (int j = 0;j<15;j++){
                 editText = new EditText(this);
                 editText.setText("");
                 editText.setMaxLines(1);
-                editText.setTextSize(15);
+                editText.setTextSize(18);
                 editText.setWidth((int)taillecase);
                 editText.setHeight((int)taillecase);
                 editText.setX((float)(24+taillecase*i));
@@ -119,7 +117,7 @@ public class Partie_ordi extends AppCompatActivity {
             editText.setTextSize(15);
             editText.setWidth((int)(taillecase));
             editText.setHeight(18*taillex/400);
-            editText.setX((float)(taillex/400*(110+taillecase*i)));
+            editText.setX((float)(taillex/400*(110+30*i)));
             editText.setY((float)0.7*tailley);
             editText.setPadding(0,0,0,5);
             editText.setGravity(Gravity.CENTER);
@@ -163,7 +161,7 @@ public class Partie_ordi extends AppCompatActivity {
 
                 plateau plat = new plateau(gridavant);
 
-                Log.e("Changement",String.valueOf(changements.size()));
+
                 motposable motpose = null;
                 try {
                     motpose = Position.motMis(changements,plat);
@@ -171,12 +169,10 @@ public class Partie_ordi extends AppCompatActivity {
                     Toast.makeText(Partie_ordi.this,"Veuillez jouer", Toast.LENGTH_LONG).show();
                     return;
                 }
-                Log.v("Mot pose",motpose.toString());
+
                 int points  = motpose.points(plat);
                 partie.score1+=points;
-                Log.v("Score",String.valueOf(partie.score1));
                 score_joueur.setText(String.valueOf(partie.score1));
-                Log.v("Points faits",String.valueOf(points));
                 Toast.makeText(Partie_ordi.this,"Vous avez fait "+String.valueOf(points)+ " points", Toast.LENGTH_LONG).show();
                 for (Position pos : changements) {
                     char lettre = pos.lettre;

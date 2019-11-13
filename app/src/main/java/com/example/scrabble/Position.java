@@ -51,8 +51,7 @@ public class Position {
             extrem1 = gauche;
             extrem2 = droite;
         }
-            Log.e("dir",String.valueOf(dir));
-            Log.e("extremite",String.valueOf(extremite));
+
         //On cherche si il y a un trou ou si le raccrochement est à une extremité
             if (!extremite){
                 char[] lettresmot = new char[15];
@@ -104,7 +103,7 @@ public class Position {
                         lettresmot[pos.x] = pos.lettre;
                     }
                 }
-                Log.e("direction",String.valueOf(dir));
+
                 if (dir==1){
                     try{
                     if (plateau.grid[gauche][haut-1]!=0){

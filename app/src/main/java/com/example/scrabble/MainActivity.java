@@ -48,12 +48,12 @@ public class MainActivity extends AppCompatActivity {
         display.getSize(size);
         int taillex = size.x;
         int tailley = size.y;
-
+        float taillecase = (taillex-48)/15;
         try{
             InputStream is = getAssets().open("mots.txt");
             dico.charge(is);}
         catch (IOException e){Log.v("erreur",e.toString());}
-        Log.v("taille_dictionnaire",String.valueOf(dico.dico.size()));
+
         final TextView text  = findViewById(R.id.textView);
         text.setTextSize(20);
         final EditText[][] editTexts = new EditText[15][15];
@@ -72,10 +72,11 @@ public class MainActivity extends AppCompatActivity {
                 editText.setText("");
                 editText.setMaxLines(1);
                 editText.setTextSize(15);
-                editText.setWidth(20*taillex/400);
-                editText.setHeight(18*taillex/400);
-                editText.setX((float)taillex/400*(40+21*i));
-                editText.setY((float)taillex/400*(117+21*j));
+                editText.setTextSize(18);
+                editText.setWidth((int)taillecase);
+                editText.setHeight((int)taillecase);
+                editText.setX((float)(24+taillecase*i));
+                editText.setY((float)(120+taillecase*j));
                 editText.setPadding(5,0,5,0);
                 editText.setGravity(Gravity.CENTER);
                 editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
