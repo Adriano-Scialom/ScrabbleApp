@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
                 editText = new EditText(this);
                 editText.setText("");
                 editText.setMaxLines(1);
-                editText.setTextSize(15);
                 editText.setTextSize(18);
+                editText.setTextColor(Color.rgb(206,206,206));
                 editText.setWidth((int)taillecase);
                 editText.setHeight((int)taillecase);
                 editText.setX((float)(24+taillecase*i));

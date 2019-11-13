@@ -97,6 +97,7 @@ public class Partie_ordi extends AppCompatActivity {
                 editText.setText("");
                 editText.setMaxLines(1);
                 editText.setTextSize(18);
+                editText.setTextColor(Color.rgb(206,206,206));
                 editText.setWidth((int)taillecase);
                 editText.setHeight((int)taillecase);
                 editText.setX((float)(24+taillecase*i));
@@ -117,7 +118,7 @@ public class Partie_ordi extends AppCompatActivity {
             editText.setTextSize(15);
             editText.setWidth((int)(taillecase));
             editText.setHeight(18*taillex/400);
-            editText.setX((float)(taillex/400*(110+30*i)));
+            editText.setX((float)(taillex/400*(100+30*i)));
             editText.setY((float)0.7*tailley);
             editText.setPadding(0,0,0,5);
             editText.setGravity(Gravity.CENTER);
