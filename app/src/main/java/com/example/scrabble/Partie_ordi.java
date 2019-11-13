@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.text.InputFilter;
 import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -54,9 +55,11 @@ public class Partie_ordi extends AppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
+
         int taillex = size.x;
         int tailley = size.y;
 
+        float taillecase = (taillex-48)/15;
         redemarrer = findViewById(R.id.Redemarrer);
         score_joueur = findViewById(R.id.scorejoueur);
         score_ordinateur = findViewById(R.id.scoreordi);
@@ -87,11 +90,8 @@ public class Partie_ordi extends AppCompatActivity {
         catch (IOException e){
             Log.v("erreur",e.toString());}
         Log.v("taille_dictionnaire",String.valueOf(dico.dico.size()));
-        final TextView text  = findViewById(R.id.textView4);
-        text.setTextSize(20);
 
-
-
+        Log.e("taillecase",String.valueOf(taillecase));
 
         for (int i=0;i<15;i++){
             for (int j = 0;j<15;j++){
@@ -99,11 +99,11 @@ public class Partie_ordi extends AppCompatActivity {
                 editText.setText("");
                 editText.setMaxLines(1);
                 editText.setTextSize(15);
-                editText.setWidth(20*taillex/400);
-                editText.setHeight(18*taillex/400);
-                editText.setX((float)taillex/400*(40+21*i));
-                editText.setY((float)taillex/400*(117+21*j));
-                editText.setPadding(5,0,5,0);
+                editText.setWidth((int)taillecase);
+                editText.setHeight((int)taillecase);
+                editText.setX((float)(24+taillecase*i));
+                editText.setY((float)(120+taillecase*j));
+                editText.setPadding(0,0,0,5);
                 editText.setGravity(Gravity.CENTER);
                 editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
                 editText.setFilters(filters);
@@ -117,11 +117,11 @@ public class Partie_ordi extends AppCompatActivity {
             editText.setText(String.valueOf(partie.j1.lettres[i]).toUpperCase());
             editText.setMaxLines(1);
             editText.setTextSize(15);
-            editText.setWidth(20*taillex/400);
+            editText.setWidth((int)(taillecase));
             editText.setHeight(18*taillex/400);
-            editText.setX((float)taillex/400*(110+30*i));
+            editText.setX((float)(taillex/400*(110+taillecase*i)));
             editText.setY((float)0.7*tailley);
-            editText.setPadding(5,0,5,0);
+            editText.setPadding(0,0,0,5);
             editText.setGravity(Gravity.CENTER);
             editText.setFilters(filters);
             editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
@@ -163,7 +163,7 @@ public class Partie_ordi extends AppCompatActivity {
 
                 plateau plat = new plateau(gridavant);
 
-
+                Log.e("Changement",String.valueOf(changements.size()));
                 motposable motpose = null;
                 try {
                     motpose = Position.motMis(changements,plat);

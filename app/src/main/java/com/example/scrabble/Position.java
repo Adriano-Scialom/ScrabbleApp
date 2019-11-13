@@ -1,6 +1,8 @@
 package com.example.scrabble;
 //[]
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -32,25 +34,25 @@ public class Position {
             if (pos.y < haut)
                 haut = pos.y;
         }
-            boolean[] present = new boolean[15];
+        boolean[] present = new boolean[15];
         boolean extremite = false;
         int extrem1,extrem2;
-        if (haut-bas>0){
+        if (bas-haut>0){
             dir = 1;
-            if (changements.size()==haut-bas+1)
+            if (changements.size()==bas-haut+1)
                 extremite = true;
             extrem1 = haut;
             extrem2 = bas;
              }
         else{
             dir = 0;
-            if (changements.size()==haut-bas+1)
+            if (changements.size()==droite-gauche+1)
                 extremite = true;
             extrem1 = gauche;
             extrem2 = droite;
         }
-
-
+            Log.e("dir",String.valueOf(dir));
+            Log.e("extremite",String.valueOf(extremite));
         //On cherche si il y a un trou ou si le raccrochement est à une extremité
             if (!extremite){
                 char[] lettresmot = new char[15];
@@ -102,7 +104,7 @@ public class Position {
                         lettresmot[pos.x] = pos.lettre;
                     }
                 }
-
+                Log.e("direction",String.valueOf(dir));
                 if (dir==1){
                     try{
                     if (plateau.grid[gauche][haut-1]!=0){

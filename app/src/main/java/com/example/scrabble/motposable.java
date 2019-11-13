@@ -1,6 +1,8 @@
 package com.example.scrabble;
 
 
+import android.util.Log;
+
 public class motposable extends motcomplet {
     int i;
     int j;
@@ -12,12 +14,14 @@ public class motposable extends motcomplet {
         this.dir = dir;
     }
     public String toString() {
-        return lettres+" "+String.valueOf(i)+" "+String.valueOf(j)+" "+String.valueOf(dir) ;
+        return lettres+" "+String.valueOf(i)+" "+String.valueOf(j)+" "+String.valueOf(dir)+ " "+String.valueOf(pos) ;
     }
 
     int comptemotancien(plateau plat,int dir,int i, int j) {
         int mult = plateau.mul(i,j);
         boolean motReel = false;
+        Log.e("pos",String.valueOf(pos));
+        Log.e("lettres",lettres);
         int valeur =val(i,j,lettres.charAt(pos),true);
 
         if(dir==1) {
