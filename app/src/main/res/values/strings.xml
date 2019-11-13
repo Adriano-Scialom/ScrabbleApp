@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Scrabble</string>
+    <string name="title_activity_menu">Menu</string>
+    <string name="title_activity_partie_ordi">Partie_ordi</string>
+</resources>
