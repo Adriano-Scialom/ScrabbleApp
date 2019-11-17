@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 //[]
 
 //{}
@@ -160,18 +161,20 @@ public class Partie_ordi extends AppCompatActivity {
 
                 }
 
-                plateau plat = new plateau(gridavant);
+                plateau plateauavant = new plateau(gridavant);
 
 
                 motposable motpose = null;
                 try {
-                    motpose = Position.motMis(changements,plat);
+                    motpose = Position.motMis(changements,plateauavant);
                 } catch (Exception e) {
                     Toast.makeText(Partie_ordi.this,"Veuillez jouer", Toast.LENGTH_LONG).show();
                     return;
                 }
-
-                int points  = motpose.points(plat);
+                if (!plateauavant.bon_mot(motpose,dico) || !isSubString(motpose.lettres.toCharArray(),partie.j1.lettres)){
+                    retourTourPrecedent(plateauavant);
+                    return;}
+                int points  = motpose.points(plateauavant);
                 partie.score1+=points;
                 score_joueur.setText(String.valueOf(partie.score1));
                 Toast.makeText(Partie_ordi.this,"Vous avez fait "+String.valueOf(points)+ " points", Toast.LENGTH_LONG).show();
@@ -236,4 +239,30 @@ public class Partie_ordi extends AppCompatActivity {
                 lettres_deck[i].setText(String.valueOf(partie.j1.lettres[i]).toUpperCase());}
         }
     };
+
+    static boolean isSubString(char[] a, char[] b){
+        int n = a.length;
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < b.length; j++) {
+                if (a[i]==b[i]){
+                    b[i]=(char)0;
+                    n--;
+                    break;
+                }
+            }
+        }
+        return n==0;
+    }
+
+    void retourTourPrecedent(plateau plateau){
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                if (plateau.grid[i][j]!=(char)0)
+                    editTexts[i][j].setText(String.valueOf(plateau.grid[i][j]).toUpperCase());
+                else
+                    editTexts[i][j].getText().clear();
+                grid[i][j] = plateau.grid[i][j];
+            }
+        }
+    }
 }

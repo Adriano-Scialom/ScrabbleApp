@@ -69,23 +69,23 @@ public class plateau {
         return res;
     }
 
-    public boolean bon_mot(motcomplet m, int i, int j,int dir,dico dico){
-        if (m.lettres.charAt(m.pos)==grid[i][j]) {
+    public boolean bon_mot(motposable m,dico dico){
+        if (m.lettres.charAt(m.pos)==grid[m.i][m.j]) {
             int n = m.lettres.length();
             boolean passe = true;
-            if(dir==1){
+            if(m.dir==1){
                 try {
-                    for (int b = j-m.pos;b<j+n-m.pos;b++) {
-                        if (b!=j && (int)grid[i][b]!=0)
+                    for (int b = m.j-m.pos;b<m.j+n-m.pos;b++) {
+                        if (b!=m.j && (int)grid[m.i][b]!=0)
                             passe = false;
                     }
                 }
                 catch(Exception e){passe = false;}
-                if (j-m.pos-1>=0 && (int)grid[i][j-m.pos-1]!=0)
+                if (m.j-m.pos-1>=0 && (int)grid[m.i][m.j-m.pos-1]!=0)
                     passe = false;
-                if (j+n-m.pos<15 && (int)grid[i][j+n-m.pos]!=0)
+                if (m.j+n-m.pos<15 && (int)grid[m.i][m.j+n-m.pos]!=0)
                     passe = false;
-                if(passe && verifemplacement(i,j,m,1,dico))
+                if(passe && verifemplacement(m.i,m.j,m,1,dico))
                     return true;
                 else
                     return false;
@@ -94,17 +94,17 @@ public class plateau {
         else
         {
             try {
-            for (int a = i-m.pos;a<i+n-m.pos;a++) {
-                if (a!=i && (int)grid[a][j]!=0)
+            for (int a = m.i-m.pos;a<m.i+n-m.pos;a++) {
+                if (a!=m.i && (int)grid[a][m.j]!=0)
                     passe = false;
             }
         }
         catch(Exception e){passe = false;}
-            if (i-m.pos-1>=0 && (int)grid[i-m.pos-1][j]!=0)
+            if (m.i-m.pos-1>=0 && (int)grid[m.i-m.pos-1][m.j]!=0)
                 passe = false;
-            if (i+n-m.pos<15 && (int)grid[i+n-m.pos][j]!=0)
+            if (m.i+n-m.pos<15 && (int)grid[m.i+n-m.pos][m.j]!=0)
                 passe = false;
-            if(passe && verifemplacement(i,j,m,0,dico))
+            if(passe && verifemplacement(m.i,m.j,m,0,dico))
                 return true;
             else
                 return false;
