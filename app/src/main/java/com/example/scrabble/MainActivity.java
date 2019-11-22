@@ -2,18 +2,12 @@ package com.example.scrabble;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.icu.text.DisplayContext;
 import android.os.Bundle;
-import android.os.Environment;
-import android.renderscript.ScriptGroup;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.text.Spanned;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -21,7 +15,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.content.Intent;
 import java.io.IOException;
@@ -42,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         ConstraintLayout constraintLayout = findViewById(R.id.Layout);
         EditText editText;
         Button button = findViewById(R.id.button);
-        final dico dico = new dico();
+        final Dico dico = new Dico();
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -134,9 +127,9 @@ public class MainActivity extends AppCompatActivity {
                         else{deck[i]=(char)0;}
 
                 }
-                deck joueur = new deck(deck);
-                plateau plat = new plateau(grid);
-                motposable resultat = joueur.ajouer(dico,plat);
+                Deck joueur = new Deck(deck);
+                Plateau plat = new Plateau(grid);
+                MotPosable resultat = joueur.ajouer(dico,plat);
                 if (resultat.dir==1){
                     for (int j = resultat.j-resultat.pos;j<resultat.j-resultat.pos+resultat.lettres.length();j++){
                         editTexts[resultat.i][j].setText(resultat.lettres.substring(j-resultat.j+resultat.pos,j-resultat.j+resultat.pos+1).toUpperCase());

@@ -7,11 +7,11 @@ import java.util.HashMap;
 import android.util.Log;
 
 
-public class dico {
-    HashMap<Long,mot> dico;
+public class Dico {
+    HashMap<Long, Mot> dico;
 
-    dico(){
-        this.dico = new HashMap<Long,mot>();
+    Dico(){
+        this.dico = new HashMap<Long, Mot>();
     }
 
     public void charge(InputStream is) throws IOException{
@@ -24,7 +24,7 @@ public class dico {
         String[] table = ligne.split("\n");
         for (String mot:table){
             if (mot.length()<9){
-            dico.put(new mot(mot).hashCod(),new mot(mot));}
+            dico.put(new Mot(mot).hashCod(),new Mot(mot));}
         }
         Log.v("Chargé",String.valueOf(dico.size()));
 

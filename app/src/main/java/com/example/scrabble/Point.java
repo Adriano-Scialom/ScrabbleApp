@@ -3,24 +3,24 @@ package com.example.scrabble;
 import java.util.ArrayList;
 //[]
 //{}
-public class point {
+public class Point {
     int i;
     int j;
-    point(int i,int j){
+    Point(int i, int j){
         this.i = i;
         this.j = j;
 }
 
-public static void position(ArrayList<point> liste,plateau plateau){
+public static void position(ArrayList<Point> liste, Plateau plateau){
         int g,d,h,b;
         int dir;
         String mot="";
-        point premier = liste.get(0);
+        Point premier = liste.get(0);
         d = premier.i;
         g = premier.i;
         h = premier.j;
         b = premier.j;
-        for (point p : liste){
+        for (Point p : liste){
             if (p.i<g)
                 g = p.i;
             if (p.i>d)

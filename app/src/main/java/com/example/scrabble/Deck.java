@@ -1,18 +1,17 @@
 package com.example.scrabble;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class deck {
+public class Deck {
     char[] lettres;
-    deck(char[] lettres){
+    Deck(char[] lettres){
         this.lettres = lettres;
     }
 
-    public LinkedList<mot> correspond(){
-        LinkedList<mot> res = new LinkedList<mot>();
+    public LinkedList<Mot> correspond(){
+        LinkedList<Mot> res = new LinkedList<Mot>();
         for (int i= 1;i<128;i++) {
             String petitmot = "";
             int i2 = i;
@@ -36,11 +35,11 @@ public class deck {
         return res;
     }
 
-    public motposable ajouer(dico dictio,plateau plat) {
-        ArrayList<motposable> faisable = plat.faisable(trueparti(dictio), dictio);
-        motposable max = null;
+    public MotPosable ajouer(Dico dictio, Plateau plat) {
+        ArrayList<MotPosable> faisable = plat.faisable(trueparti(dictio), dictio);
+        MotPosable max = null;
         int maxi = 0;
-        for (motposable mot:faisable){
+        for (MotPosable mot:faisable){
             if (mot.points(plat)>=maxi) {
                 max = mot;
                 maxi = mot.points(plat);
@@ -57,7 +56,7 @@ public class deck {
                     return false;
         return true;
     }
-    public void partition(ArrayList<motcomplet> poss, dico dictio, int[] liste, int index,int pe) {
+    public void partition(ArrayList<MotComplet> poss, Dico dictio, int[] liste, int index, int pe) {
         if (index>=pe) {
             // la liste est construite -> FIN
 
@@ -65,9 +64,9 @@ public class deck {
                 String mot = "";
                 for (int j = 0;j<pe;j++)
                     mot+=lettres[liste[j]];
-                //System.out.println(mot);
+                //System.out.println(Mot);
                 for (int j = 0;j<pe;j++)
-                    poss.addAll((new mot(mot)).proche(dictio, j));
+                    poss.addAll((new Mot(mot)).proche(dictio, j));
             }
             return;
         }
@@ -81,8 +80,8 @@ public class deck {
             partition(poss, dictio, liste,index+1,pe);
         }
     }
-    public ArrayList<motcomplet> trueparti(dico dictio) {
-        ArrayList<motcomplet> poss = new ArrayList<motcomplet>();
+    public ArrayList<MotComplet> trueparti(Dico dictio) {
+        ArrayList<MotComplet> poss = new ArrayList<MotComplet>();
         for (int i = 0;i<=7;i++){
             int[] liste = new int[i];
             partition(poss,dictio,liste,0,i);

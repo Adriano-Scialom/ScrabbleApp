@@ -2,9 +2,9 @@ package com.example.scrabble;
 //[]
 
 //{}
-public class traite {
+public class Traite {
     String[][] tab;
-    traite(String[][] strings){
+    Traite(String[][] strings){
         tab = strings;
     }
     String ajout(){

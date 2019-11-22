@@ -1,26 +1,19 @@
 package com.example.scrabble;
 
-import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
 
 import android.text.InputFilter;
 import android.text.InputType;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,23 +22,21 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 //[]
 
 //{}
 public class Partie_ordi extends AppCompatActivity {
     final char[][] grid = new char[15][15];
     final char[] deck = new char[7];
-    final dico dico = new dico();
+    final Dico dico = new Dico();
 
     TextView score_joueur;
     TextView score_ordinateur;
     final EditText[][] editTexts = new EditText[15][15];
     final EditText[] lettres_deck = new EditText[7];
-    plateau plateau = new plateau(grid);
-    partie partie = new partie(dico,plateau);
+    Plateau plateau = new Plateau(grid);
+    Partie partie = new Partie(dico,plateau);
     Button redemarrer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,10 +152,10 @@ public class Partie_ordi extends AppCompatActivity {
 
                 }
 
-                plateau plateauavant = new plateau(gridavant);
+                Plateau plateauavant = new Plateau(gridavant);
 
 
-                motposable motpose = null;
+                MotPosable motpose = null;
                 try {
                     motpose = Position.motMis(changements,plateauavant);
                 } catch (Exception e) {
@@ -214,7 +205,7 @@ public class Partie_ordi extends AppCompatActivity {
 
     }
     void finDePartie(){
-        Toast.makeText(Partie_ordi.this,"Vous avez fini la partie", Toast.LENGTH_LONG).show();
+        Toast.makeText(Partie_ordi.this,"Vous avez fini la Partie", Toast.LENGTH_LONG).show();
     }
 
     View.OnClickListener redemarre = new View.OnClickListener() {
@@ -234,7 +225,7 @@ public class Partie_ordi extends AppCompatActivity {
             editTexts[7][7].setText("E");
             score_joueur.setText("0");
             score_ordinateur.setText("0");
-            partie = new partie(dico,plateau);
+            partie = new Partie(dico,plateau);
             for(int i = 0;i<7;i++){
                 lettres_deck[i].setText(String.valueOf(partie.j1.lettres[i]).toUpperCase());}
         }
@@ -254,7 +245,7 @@ public class Partie_ordi extends AppCompatActivity {
         return n==0;
     }
 
-    void retourTourPrecedent(plateau plateau){
+    void retourTourPrecedent(Plateau plateau){
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
                 if (plateau.grid[i][j]!=(char)0)

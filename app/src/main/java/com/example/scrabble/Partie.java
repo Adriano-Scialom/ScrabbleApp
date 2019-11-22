@@ -1,21 +1,20 @@
 package com.example.scrabble;
 
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
 
 
 //{}
-public class partie {
-    plateau plat;
-    deck j1;
-    deck j2;
-    private dico dictio;
+public class Partie {
+    Plateau plat;
+    Deck j1;
+    Deck j2;
+    private Dico dictio;
     int score1 = 0;
     int score2 = 0;
     HashMap<Integer,Character> sac;
-    partie(dico dico,plateau plateau) {
+    Partie(Dico dico, Plateau plateau) {
         plat = plateau;
         plat.grid[7][7] = 'e';
         score1 = 0;
@@ -50,10 +49,10 @@ public class partie {
         mettre(99,'z',1);
         char[] dec1 = { 'a', 'a', 'a', 'a',
                 'a', 'a', 'a' };
-        j1 = new deck(dec1);
+        j1 = new Deck(dec1);
         char[] dec2 = { 'a', 'a', 'a', 'a',
                 'a', 'a', 'a' };
-        j2 = new deck(dec2);
+        j2 = new Deck(dec2);
         for (int i = 0;i<7;i++){
             try {
                 j1.lettres[i] = tire();
@@ -81,7 +80,7 @@ public class partie {
     }
 
     public boolean tour(int i) {
-        motposable mot;
+        MotPosable mot;
         boolean res = true;
         if (i==1){
             mot = j1.ajouer(dictio, plat);
@@ -109,7 +108,7 @@ public class partie {
             for (int a = mot.i-mot.pos;a<mot.i-mot.pos+mot.lettres.length();a++)
                 plat.grid[a][mot.j]=mot.lettres.charAt(a+mot.pos-mot.i);
         }
-        //if (mot.lettres.length()==8 && mot.points(plat)>130)
+        //if (Mot.lettres.length()==8 && Mot.points(plat)>130)
             //plat.imprime();
         mot.lettres = mot.lettres.substring(0, mot.pos) + mot.lettres.substring(mot.pos+1);
         int achanger[] = new int[mot.lettres.length()];

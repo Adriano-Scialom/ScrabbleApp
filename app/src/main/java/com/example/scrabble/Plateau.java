@@ -1,19 +1,18 @@
 package com.example.scrabble;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 //{}
-public class plateau {
+public class Plateau {
     char[][] grid;
-    plateau(){
+    Plateau(){
         grid = new char[15][15];
     }
-    plateau(char[][] plat){
+    Plateau(char[][] plat){
         grid = plat;
     }
-    ArrayList<motposable> faisable(ArrayList<motcomplet> liste,dico dictio){
-        ArrayList<motposable> res = new ArrayList<motposable>();
+    ArrayList<MotPosable> faisable(ArrayList<MotComplet> liste, Dico dictio){
+        ArrayList<MotPosable> res = new ArrayList<MotPosable>();
         for(int i = 0;i<15;i++)
             for(int j = 0;j<15;j++)
                 if ((int)grid[i][j]!=0)
@@ -21,10 +20,10 @@ public class plateau {
         return res;
     }
 
-    ArrayList<motposable> rentre(ArrayList<motcomplet> liste ,int i,int j,dico dictio) {
-        ArrayList<motposable> res = new ArrayList<motposable>();
+    ArrayList<MotPosable> rentre(ArrayList<MotComplet> liste , int i, int j, Dico dictio) {
+        ArrayList<MotPosable> res = new ArrayList<MotPosable>();
 
-        for (motcomplet m:liste) {
+        for (MotComplet m:liste) {
 
             if (m.lettres.charAt(m.pos)==grid[i][j]) {
                 int n = m.lettres.length();
@@ -42,7 +41,7 @@ public class plateau {
                 if (i+n-m.pos<15 && (int)grid[i+n-m.pos][j]!=0)
                     passe = false;
                 if(passe && verifemplacement(i,j,m,0,dictio))
-                    res.add(new motposable(m.lettres,m.pos,i,j,0));
+                    res.add(new MotPosable(m.lettres,m.pos,i,j,0));
 
                 passe = true;
                 try {
@@ -57,7 +56,7 @@ public class plateau {
                 if (j+n-m.pos<15 && (int)grid[i][j+n-m.pos]!=0)
                     passe = false;
                 if(passe && verifemplacement(i,j,m,1,dictio))
-                    res.add(new motposable(m.lettres,m.pos,i,j,1));
+                    res.add(new MotPosable(m.lettres,m.pos,i,j,1));
 
 
             }
@@ -69,7 +68,7 @@ public class plateau {
         return res;
     }
 
-    public boolean bon_mot(motposable m,dico dico){
+    public boolean bon_mot(MotPosable m, Dico dico){
         if (m.lettres.charAt(m.pos)==grid[m.i][m.j]) {
             int n = m.lettres.length();
             boolean passe = true;
@@ -112,7 +111,7 @@ public class plateau {
     }
     else
     return false;}
-    public boolean valide(int i,int j,char c,int dir,dico dictio) {
+    public boolean valide(int i, int j, char c, int dir, Dico dictio) {
         if(dir==0) {
             //horizontal
             int g = j-1;
@@ -125,7 +124,7 @@ public class plateau {
                 mot = mot+String.valueOf(grid[i][d]);
                 d+=1;}
             if (mot.length()>1)
-                if(dictio.dico.containsKey((new mot(mot)).hashCod()))
+                if(dictio.dico.containsKey((new Mot(mot)).hashCod()))
                     return true;
                 else
                     return false;
@@ -147,7 +146,7 @@ public class plateau {
                 mot = mot+String.valueOf(grid[h][j]);
                 h+=1;}
             if (mot.length()>1)
-                if(dictio.dico.containsKey((new mot(mot)).hashCod()))
+                if(dictio.dico.containsKey((new Mot(mot)).hashCod()))
                     return true;
                 else
                     return false;
@@ -157,7 +156,7 @@ public class plateau {
         }
     }
 
-    public boolean verifemplacement(int i,int j,motcomplet m,int dir,dico dictio){
+    public boolean verifemplacement(int i, int j, MotComplet m, int dir, Dico dictio){
         int n = m.lettres.length();
         if (dir==0){
             for (int a = i-m.pos;a<i+n-m.pos;a++){

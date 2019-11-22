@@ -3,11 +3,11 @@ package com.example.scrabble;
 
 import android.util.Log;
 
-public class motposable extends motcomplet {
+public class MotPosable extends MotComplet {
     int i;
     int j;
     int dir;
-    motposable(String lettres, int pos,int i,int j,int dir) {
+    MotPosable(String lettres, int pos, int i, int j, int dir) {
         super(lettres, pos);
         this.i = i;
         this.j = j;
@@ -17,8 +17,8 @@ public class motposable extends motcomplet {
         return lettres+" "+String.valueOf(i)+" "+String.valueOf(j)+" "+String.valueOf(dir)+ " "+String.valueOf(pos) ;
     }
 
-    int comptemotancien(plateau plat,int dir,int i, int j) {
-        int mult = plateau.mul(i,j);
+    int comptemotancien(Plateau plat, int dir, int i, int j) {
+        int mult = Plateau.mul(i,j);
         boolean motReel = false;
         Log.e("pos",String.valueOf(pos));
         Log.e("lettres",lettres);
@@ -69,7 +69,7 @@ public class motposable extends motcomplet {
         if(dir==1) {
             for (int a = -pos+j; a<j-pos+lettres.length();a++){
                 valeur+=val(i,a,lettres.charAt(a+pos-j),true);
-                mult*= plateau.mul(i, a);
+                mult*= Plateau.mul(i, a);
             }
         }
 
@@ -78,7 +78,7 @@ public class motposable extends motcomplet {
             //vertical
             for (int b = -pos+i; b<i-pos+lettres.length();b++){
                 valeur+=val(b,j,lettres.charAt(b+pos-i),true);
-                mult*= plateau.mul(b, j);
+                mult*= Plateau.mul(b, j);
             }
         }
 
@@ -215,7 +215,7 @@ public class motposable extends motcomplet {
 
     }
     //{}
-    int points(plateau plat){
+    int points(Plateau plat){
         int res = 0;
         if (lettres.length()==8)
             res = 50;

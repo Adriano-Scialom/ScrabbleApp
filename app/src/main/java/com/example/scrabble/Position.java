@@ -1,8 +1,6 @@
 package com.example.scrabble;
 //[]
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -15,9 +13,9 @@ public class Position {
         this.x = x;
         this.y = y;
         this.lettre = lettre;}
-    static motposable motMis(ArrayList<Position> changements,plateau plateau) throws Exception{
+    static MotPosable motMis(ArrayList<Position> changements, Plateau plateau) throws Exception{
         int gauche,droite,haut,bas,dir;
-        motposable motposable;
+        MotPosable motposable;
         if (changements.size()>1){
         gauche = 14;
         droite = 0;
@@ -83,9 +81,9 @@ public class Position {
             }
 
             if (dir==1)
-                motposable = new motposable(String.copyValueOf(Arrays.copyOfRange(lettresmot,haut,bas+1)),manquant-extrem1,gauche,manquant,dir);
+                motposable = new MotPosable(String.copyValueOf(Arrays.copyOfRange(lettresmot,haut,bas+1)),manquant-extrem1,gauche,manquant,dir);
             else
-                motposable = new motposable(String.copyValueOf(Arrays.copyOfRange(lettresmot,gauche,droite+1)),manquant-extrem1,manquant,haut,dir);
+                motposable = new MotPosable(String.copyValueOf(Arrays.copyOfRange(lettresmot,gauche,droite+1)),manquant-extrem1,manquant,haut,dir);
             return motposable;
 
             }
@@ -117,7 +115,7 @@ public class Position {
                         manquant = bas + 1;
                     }}
                     catch (Exception e){}
-                    motposable = new motposable(nettoyer(lettresmot),manquant-haut,gauche,manquant,dir);
+                    motposable = new MotPosable(nettoyer(lettresmot),manquant-haut,gauche,manquant,dir);
                 }
                 else{
                     try{
@@ -132,7 +130,7 @@ public class Position {
                         manquant = droite + 1;
                     }}
                     catch (Exception e){}
-                    motposable = new motposable(nettoyer(lettresmot),manquant-gauche,manquant,gauche,dir);
+                    motposable = new MotPosable(nettoyer(lettresmot),manquant-gauche,manquant,gauche,dir);
 
                 }
                 return motposable;
@@ -142,13 +140,13 @@ public class Position {
             gauche = droite = changements.get(0).x;
             haut = bas = changements.get(0).y;
             if (plateau.grid[gauche-1][haut]!=0)
-                motposable = new motposable(String.valueOf(plateau.grid[gauche-1][haut])+String.valueOf(changements.get(0).lettre),0,gauche-1,haut,0);
+                motposable = new MotPosable(String.valueOf(plateau.grid[gauche-1][haut])+String.valueOf(changements.get(0).lettre),0,gauche-1,haut,0);
             else if (plateau.grid[droite+1][haut]!=0)
-                motposable = new motposable(String.valueOf(changements.get(0).lettre)+String.valueOf(plateau.grid[droite+1][haut]),1,droite+1,haut,0);
+                motposable = new MotPosable(String.valueOf(changements.get(0).lettre)+String.valueOf(plateau.grid[droite+1][haut]),1,droite+1,haut,0);
             else if (plateau.grid[gauche][haut-1]!=0)
-                motposable = new motposable(String.valueOf(plateau.grid[gauche][haut-1])+String.valueOf(changements.get(0).lettre),0,gauche,haut-1,0);
+                motposable = new MotPosable(String.valueOf(plateau.grid[gauche][haut-1])+String.valueOf(changements.get(0).lettre),0,gauche,haut-1,0);
             else
-                motposable = new motposable(String.valueOf(changements.get(0).lettre)+String.valueOf(plateau.grid[droite][haut+1]),1,droite,haut+1,0);
+                motposable = new MotPosable(String.valueOf(changements.get(0).lettre)+String.valueOf(plateau.grid[droite][haut+1]),1,droite,haut+1,0);
 
             return motposable;
         }
