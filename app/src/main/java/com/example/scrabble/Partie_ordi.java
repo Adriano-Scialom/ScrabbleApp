@@ -139,8 +139,9 @@ public class Partie_ordi extends AppCompatActivity {
                             cas = cas.toLowerCase();
                             grid[i][j]= cas.charAt(0);}
                         else{grid[i][j]=(char)0;}
-                        if (grid[i][j]!=gridavant[i][j])
-                            changements.add(new Position(i,j,grid[i][j]));
+                        if (grid[i][j]!=gridavant[i][j]){
+                            editTexts[i][j].setInputType(InputType.TYPE_NULL);
+                            changements.add(new Position(i,j,grid[i][j]));}
                     }
                 }
                 for (int i = 0;i<7;i++){
@@ -250,8 +251,9 @@ public class Partie_ordi extends AppCompatActivity {
             for (int j = 0; j < 15; j++) {
                 if (plateau.grid[i][j]!=(char)0)
                     editTexts[i][j].setText(String.valueOf(plateau.grid[i][j]).toUpperCase());
-                else
+                else{
                     editTexts[i][j].getText().clear();
+                    editTexts[i][j].setInputType(InputType.TYPE_CLASS_TEXT);}
                 grid[i][j] = plateau.grid[i][j];
             }
         }
