@@ -14,6 +14,7 @@ public class Dico {
         this.dico = new HashMap<Long, Mot>();
     }
 
+    //Loads every word in the txt file that constitutes the dictionary into the Dico object
     public void charge(InputStream is) throws IOException{
         String ligne = "";
         int size = is.available();
@@ -26,9 +27,7 @@ public class Dico {
             if (mot.length()<9){
             dico.put(new Mot(mot).hashCod(),new Mot(mot));}
         }
-        Log.v("Chargé",String.valueOf(dico.size()));
-
+        Log.v("Loaded",String.valueOf(dico.size()));
     }
-
 
 }

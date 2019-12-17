@@ -3,15 +3,17 @@ package com.example.scrabble;
 
 import java.util.ArrayList;
 //{}
-public class Plateau {
+public class Board {
     char[][] grid;
-    Plateau(){
+    Board(){
         grid = new char[15][15];
     }
-    Plateau(char[][] plat){
+    Board(char[][] plat){
         grid = plat;
     }
-    ArrayList<MotPosable> faisable(ArrayList<MotComplet> liste, Dico dictio){
+
+    //Returns the list of playable words in the board, taking as an argument a list of lexically correct words
+    ArrayList<MotPosable> doable(ArrayList<MotComplet> liste, Dico dictio){
         ArrayList<MotPosable> res = new ArrayList<MotPosable>();
         for(int i = 0;i<15;i++)
             for(int j = 0;j<15;j++)
@@ -19,7 +21,8 @@ public class Plateau {
                     res.addAll(rentre(liste,i,j,dictio));
         return res;
     }
-
+    //Return a list of words that can be put on the (i,j) coordinates on the board,
+    // taking as an argument a list of lexically correct words
     ArrayList<MotPosable> rentre(ArrayList<MotComplet> liste , int i, int j, Dico dictio) {
         ArrayList<MotPosable> res = new ArrayList<MotPosable>();
 
@@ -57,13 +60,8 @@ public class Plateau {
                     passe = false;
                 if(passe && verifemplacement(i,j,m,1,dictio))
                     res.add(new MotPosable(m.lettres,m.pos,i,j,1));
-
-
             }
-
         }
-
-
 
         return res;
     }
@@ -111,6 +109,7 @@ public class Plateau {
     }
     else
     return false;}
+
     public boolean valide(int i, int j, char c, int dir, Dico dictio) {
         if(dir==0) {
             //horizontal
@@ -199,17 +198,5 @@ public class Plateau {
 
 
     }
-
-    public void imprime(){
-        for(int i = 0;i<15;i++){
-            for (int j = 0;j<15;j++)
-                if (((int)grid[i][j])==0)
-                    System.out.print("  ");
-                else
-                    System.out.print(grid[i][j]+" ");
-            System.out.println();}
-    }
-
-
 
 }

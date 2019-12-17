@@ -35,8 +35,8 @@ public class Partie_ordi extends AppCompatActivity {
     TextView score_ordinateur;
     final EditText[][] editTexts = new EditText[15][15];
     final EditText[] lettres_deck = new EditText[7];
-    Plateau plateau = new Plateau(grid);
-    Partie partie = new Partie(dico,plateau);
+    Board plateau = new Board(grid);
+    Game partie = new Game(dico,plateau);
     Button redemarrer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +105,7 @@ public class Partie_ordi extends AppCompatActivity {
         editTexts[7][7].setText("E");
         for(int i = 0;i<7;i++){
             editText = new EditText(this);
-            editText.setText(String.valueOf(partie.j1.lettres[i]).toUpperCase());
+            editText.setText(String.valueOf(partie.j1.letters[i]).toUpperCase());
             editText.setMaxLines(1);
             editText.setTextSize(15);
             editText.setWidth((int)(taillecase));
@@ -153,7 +153,7 @@ public class Partie_ordi extends AppCompatActivity {
 
                 }
 
-                Plateau plateauavant = new Plateau(gridavant);
+                Board plateauavant = new Board(gridavant);
 
 
                 MotPosable motpose = null;
@@ -163,7 +163,7 @@ public class Partie_ordi extends AppCompatActivity {
                     Toast.makeText(Partie_ordi.this,"Veuillez jouer", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (!plateauavant.bon_mot(motpose,dico) || !isSubString(motpose.lettres.toCharArray(),partie.j1.lettres)){
+                if (!plateauavant.bon_mot(motpose,dico) || !isSubString(motpose.lettres.toCharArray(),partie.j1.letters)){
                     retourTourPrecedent(plateauavant);
                     return;}
                 int points  = motpose.points(plateauavant);
@@ -171,18 +171,18 @@ public class Partie_ordi extends AppCompatActivity {
                 score_joueur.setText(String.valueOf(partie.score1));
                 Toast.makeText(Partie_ordi.this,"Vous avez fait "+String.valueOf(points)+ " points", Toast.LENGTH_LONG).show();
                 for (Position pos : changements) {
-                    char lettre = pos.lettre;
+                    char lettre = pos.letter;
                     for (int i = 0; i < 7; i++) {
-                        if (partie.j1.lettres[i]==lettre){
-                            partie.j1.lettres[i] = (char)0;
+                        if (partie.j1.letters[i]==lettre){
+                            partie.j1.letters[i] = (char)0;
                             break;}
                     }
                 }
                 for (int i = 0; i < 7; i++) {
-                    if (partie.j1.lettres[i]==(char)0)
+                    if (partie.j1.letters[i]==(char)0)
                         try {
-                            partie.j1.lettres[i]= partie.tire();
-                            lettres_deck[i].setText(String.valueOf(partie.j1.lettres[i]).toUpperCase());
+                            partie.j1.letters[i]= partie.tire();
+                            lettres_deck[i].setText(String.valueOf(partie.j1.letters[i]).toUpperCase());
                         }catch (Exception e){
                             finDePartie();
                             Log.e("",e.toString());}
@@ -193,8 +193,8 @@ public class Partie_ordi extends AppCompatActivity {
                 score_ordinateur.setText(String.valueOf(partie.score2));
                 for (int i = 0; i < 15; i++) {
                     for (int j = 0; j < 15; j++) {
-                        if (partie.plat.grid[i][j]!=(char)0){
-                        editTexts[i][j].setText(String.valueOf(partie.plat.grid[i][j]).toUpperCase());}
+                        if (partie.board.grid[i][j]!=(char)0){
+                        editTexts[i][j].setText(String.valueOf(partie.board.grid[i][j]).toUpperCase());}
                     }
                 }
 
@@ -206,7 +206,7 @@ public class Partie_ordi extends AppCompatActivity {
 
     }
     void finDePartie(){
-        Toast.makeText(Partie_ordi.this,"Vous avez fini la Partie", Toast.LENGTH_LONG).show();
+        Toast.makeText(Partie_ordi.this,"Vous avez fini la Game", Toast.LENGTH_LONG).show();
     }
 
     View.OnClickListener redemarre = new View.OnClickListener() {
@@ -226,9 +226,9 @@ public class Partie_ordi extends AppCompatActivity {
             editTexts[7][7].setText("E");
             score_joueur.setText("0");
             score_ordinateur.setText("0");
-            partie = new Partie(dico,plateau);
+            partie = new Game(dico,plateau);
             for(int i = 0;i<7;i++){
-                lettres_deck[i].setText(String.valueOf(partie.j1.lettres[i]).toUpperCase());}
+                lettres_deck[i].setText(String.valueOf(partie.j1.letters[i]).toUpperCase());}
         }
     };
 
@@ -246,7 +246,7 @@ public class Partie_ordi extends AppCompatActivity {
         return n==0;
     }
 
-    void retourTourPrecedent(Plateau plateau){
+    void retourTourPrecedent(Board plateau){
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
                 if (plateau.grid[i][j]!=(char)0)

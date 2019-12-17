@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 Deck joueur = new Deck(deck);
-                Plateau plat = new Plateau(grid);
+                Board plat = new Board(grid);
                 MotPosable resultat = joueur.ajouer(dico,plat);
                 if (resultat.dir==1){
                     for (int j = resultat.j-resultat.pos;j<resultat.j-resultat.pos+resultat.lettres.length();j++){

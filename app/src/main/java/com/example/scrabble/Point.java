@@ -3,6 +3,8 @@ package com.example.scrabble;
 import java.util.ArrayList;
 //[]
 //{}
+//OBSOLETE
+
 public class Point {
     int i;
     int j;
@@ -10,8 +12,8 @@ public class Point {
         this.i = i;
         this.j = j;
 }
-
-public static void position(ArrayList<Point> liste, Plateau plateau){
+//
+public static void position(ArrayList<Point> liste, Board plateau){
         int g,d,h,b;
         int dir;
         String mot="";

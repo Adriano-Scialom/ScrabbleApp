@@ -1,14 +1,11 @@
 package com.example.scrabble;
 
-
-import android.util.Log;
-
 public class MotPosable extends MotComplet {
     int i;
     int j;
     int dir;
-    MotPosable(String lettres, int pos, int i, int j, int dir) {
-        super(lettres, pos);
+    MotPosable(String letters, int pos, int i, int j, int dir) {
+        super(letters, pos);
         this.i = i;
         this.j = j;
         this.dir = dir;
@@ -16,12 +13,10 @@ public class MotPosable extends MotComplet {
     public String toString() {
         return lettres+" "+String.valueOf(i)+" "+String.valueOf(j)+" "+String.valueOf(dir)+ " "+String.valueOf(pos) ;
     }
-
-    int comptemotancien(Plateau plat, int dir, int i, int j) {
-        int mult = Plateau.mul(i,j);
+    //Used in points
+    int comptemotancien(Board plat, int dir, int i, int j) {
+        int mult = Board.mul(i,j);
         boolean motReel = false;
-        Log.e("pos",String.valueOf(pos));
-        Log.e("lettres",lettres);
         int valeur =val(i,j,lettres.charAt(pos),true);
 
         if(dir==1) {
@@ -62,31 +57,29 @@ public class MotPosable extends MotComplet {
 
 
     }
-
+    //Used in points
     int comptemotnouveau() {
         int mult = 1;
         int valeur = 0;
         if(dir==1) {
+            //horizontal
             for (int a = -pos+j; a<j-pos+lettres.length();a++){
                 valeur+=val(i,a,lettres.charAt(a+pos-j),true);
-                mult*= Plateau.mul(i, a);
+                mult*= Board.mul(i, a);
             }
         }
-
         else
         {
             //vertical
             for (int b = -pos+i; b<i-pos+lettres.length();b++){
                 valeur+=val(b,j,lettres.charAt(b+pos-i),true);
-                mult*= Plateau.mul(b, j);
+                mult*= Board.mul(b, j);
             }
         }
 
         return valeur*mult;
-
-
     }
-
+    //Gives the value of the letter c posed at the coordinates (i,j) on the board (accounts for multipliers)
     int val(int i, int j, char c, boolean nouveau){
         int cn = ((int)c)-96;
         int valeur = 0;
@@ -215,21 +208,23 @@ public class MotPosable extends MotComplet {
 
     }
     //{}
-    int points(Plateau plat){
+
+    //Counts the number of points made by playing the word MotPosable on the board
+    int points(Board board){
         int res = 0;
         if (lettres.length()==8)
             res = 50;
         if(dir==1){
             res+=comptemotnouveau();
             for (int a = -pos+j; a<j-pos+lettres.length();a++){
-                res+= comptemotancien(plat,0,i,a);
+                res+= comptemotancien(board,0,i,a);
             }
         }
         else
         {
             res+=comptemotnouveau();
             for (int b = -pos+i; b<i-pos+lettres.length();b++){
-                res+= comptemotancien(plat,1,b,j);
+                res+= comptemotancien(board,1,b,j);
             }
         }
         return res;
